@@ -1,0 +1,26 @@
+<app-header></app-header>
+<div class="container">
+  <div class="input-group Search col-lg-4">
+    <input type="text" class="form-control input-sm" id="keyword" [(ngModel)]="userName" placeholder="Search Analyst " aria-label="Recipient's username"
+      aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="searchAnalyst()"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card col-lg-4" *ngFor="let user of userList">
+      <div class="card-body">
+        <p> Name: {{user.name}}</p>
+        <br>
+        <p>Email: {{user.email}}</p>
+
+        <div *ngIf="user.status">
+          <button class="btn btn-primary" (click)="block(user.email)">Block Analyst</button>
+        </div>
+        <div *ngIf="!user.status">
+          <button class="btn btn-primary" (click)="block(user.email)">UnBlock Analyst</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

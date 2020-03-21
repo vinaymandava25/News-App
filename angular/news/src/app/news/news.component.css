@@ -1,0 +1,23 @@
+.article{
+    padding-top:20px;
+}
+.card-header{
+    background-color: lightgray;
+}
+.pointer{
+    cursor: pointer;
+}
+.favourites{
+    background-color: #007bff!important
+}
+.card-title{
+    font-size: larger;
+    font: bold;
+}
+.news{
+    text-align: center;
+}
+.Search{
+    padding-bottom: 10px;
+    float: left;
+}

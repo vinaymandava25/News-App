@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="container">
+  <h2>Login</h2>&nbsp;
+  <div class="row">
+    <div class="signupBorder">
+      <form [formGroup]="loginForm">
+        <div *ngIf="success">
+          <div class="col-12">
+            <div class="alert alert-danger">
+              Email/Password is wrong !
+            </div>
+          </div>
+        </div>
+        <div *ngIf="blocked">
+          <div class="col-12">
+            <div class="alert alert-danger">
+              Analyst is Blocked ! Please contact Admin </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email address </label>
+          <span>
+            <input type="email" name="email" id="email" class="form-control" formControlName="email" placeholder="Enter email">
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <span>
+            <input type="password" name="password" id="password" class="form-control" formControlName="password" placeholder="Enter Password">
+          </span>
+        </div>
+        <div class="col-md-12 text-center mb-3">
+          <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm" (click)="login()">Login</button>
+        </div>
+
+        <div id="card3">New member ?
+          <a [routerLink]="['/']" style="color:#007bff">Signup Here</a>&nbsp;
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
