@@ -14,13 +14,22 @@ export class NewsApiService {
 
   userId: any;
   user: any;
-  articles:any;
+  articles: any;
   articleUrl: string = "/news-service/rest/saveArticle";
-  favArticleUrl: string = "/news-service/rest/getfavArticles";
+  favArticleUrl: string = "/news-service/rest/getFavArticles";
   deleteArticleUrl: string = "/news-service/rest/deleteArticle";
   languageCode: any;
   api_key = 'cc190edd640a47b3a861a41171404af4';
   constructor(private http: HttpClient) { }
+
+  setArticles(articles) {
+    this.articles = articles;
+  }
+  getArticles() {
+    return this.articles;
+  }
+
+
   initSources() {
     return this.http.get('https://newsapi.org/v2/sources?language=' + this.languageCode + '&apiKey=' + this.api_key);
   }
@@ -34,8 +43,13 @@ export class NewsApiService {
     console.log(user);
     return this.http.post<any>(this.deleteArticleUrl, user, httpOptions);
   }
-  searchNews(keyword){
-     return this.http.get('https://newsapi.org/v2/everything?q='+keyword+'&apiKey='+this.api_key);
+  getFavArticles(userId) {
+    console.log(userId);
+    return this.http.get<any>(this.favArticleUrl + '/' + userId, httpOptions);
+
+  }
+  searchNews(keyword) {
+    return this.http.get('https://newsapi.org/v2/everything?q=' + keyword + '&apiKey=' + this.api_key);
   }
 
 } 

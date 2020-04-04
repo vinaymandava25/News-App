@@ -1,24 +1,12 @@
 <app-header></app-header>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8"></div>
-        <div class="col-lg-4">
-            <div class="row card-title col-lg-12">
-                <h1>Live Streaming News</h1>
-            </div>
-
-            <div class="row">
-                <div class="card" *ngFor="let source of Sources">
-                    <span class="card-header pointer" (click)="searchArticles(source.id);"> {{source.name}}</span>
-                </div>
-            </div>
+        <div class="card-title col-lg-8">
+            <h1>Live Streaming News</h1>
         </div>
-    </div>
-    <!-- search  -->
-    <div class="row">
         <div class="input-group Search col-lg-4 ">
-            <input type="text" class="form-control input-sm" id="search" [(ngModel)]="search" placeholder="Search News " aria-label="Recipient's username"
-                aria-describedby="basic-addon2">
+            <input type="text" class="form-control input-sm" id="search" [(ngModel)]="search" placeholder="Search News "
+                aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" (click)="searchNews()">
                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -26,42 +14,71 @@
             </div>
         </div>
     </div>
-    <div ng-if="searchNewsClicked">
-        <div class="row">
-            <div class="card col-lg-4" *ngFor="let news of searchedNews">
-                <div class="card-body">
-                    <div class="card-title">{{news.title}}</div>
-                    <hr>
-                    <div class="card-body"> {{news.description}}
-                        <a href={{news.url}}> More</a>
+
+    <div class="row">
+
+        <div class="col-lg-2">
+
+
+            <div class="card" *ngFor="let source of Sources">
+                <span class="card-header pointer" (click)="searchArticles(source.id);"> {{source.name}}</span>
+            </div>
+        </div>
+
+        <div class="article col-lg-10">
+            <div ng-if="searchNewsClicked" class="col-lg-10">
+
+                <div class="card" *ngFor="let news of searchedNews">
+                    <div class="card-body">
+                        <div class="card-title">{{news.title}}</div>
+                        <hr>
+                        <div class="card-body"> {{news.description}}
+                            <a href={{news.url}} target="_blank"> More</a>
+                        </div>
+                  
+                        <span style="float: right;">
+                            <button class="btn btn-primary" 
+                                (click)="articles(news.source.name,news.title,news.author,news.description,news.url,news.publishedAt,news.content)">Add
+                                to favourites</button>
+                        </span>
                     </div>
-                    <span>
-                        <button class="btn btn-primary" (click)="articles(news.source.name,news.title,news.author,news.description,news.url,news.publishedAt,news.content)">Add to favourites</button>
-                    </span>
+                </div>
+
+            </div>
+            <div *ngIf="searchedNews==''">
+                <div class="card" *ngFor="let article of Articles">
+                    <div class="card-body">
+                        <div class="card-header">{{article.source.name}}</div>
+                        <div class="card-title">{{article.title}}
+                        </div>
+                        <hr>
+                        <p class="class-body">
+                            {{article.description}}
+                        </p>
+                        <a href={{article.url}}> More</a>
+                        <span style="float: right;">
+                            <button class="btn btn-primary" 
+                                (click)="articles(article.source.name,article.title,article.author,article.description,article.url,article.publishedAt,article.content)">Add
+                                to favourites</button>
+                        </span>
+    
+                    </div>
                 </div>
             </div>
+            
         </div>
+
     </div>
 
+    <!-- search  -->
 
 
 
 
-    <div class=" row article">
-        <div class="card col-lg-4" *ngFor="let article of Articles">
-            <div class="card-header">{{article.source.name}}</div>
-            <div class="card-title">{{article.title}}
-            </div>
-            <hr>
-            <p class="class-body">
-                {{article.description}}
-            </p>
-            <a href={{article.url}}> More</a>
-            <span>
-                <button class="btn btn-primary" (click)="articles(article.source.name,article.title,article.author,article.description,article.url,article.publishedAt,article.content)">Add to favourites</button>
-            </span>
-        </div>
-    </div>
+
+
+
+
 
 
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { FormArray } from '@angular/forms';
 import { SignupService } from '../signup.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-signup',
@@ -20,23 +21,28 @@ export class SignupComponent implements OnInit {
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
     Validators.maxLength(255)]),
-    name: new FormControl('', [Validators.required,Validators.minLength(1),Validators.maxLength(70)]),
-    password: new FormControl('', [Validators.required,Validators.minLength(6),Validators.maxLength(50)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(70)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]),
     language: new FormControl()
   });
 
-  constructor(private router: Router, private signupService: SignupService) { }
+  constructor(private loaderService: NgxUiLoaderService, private router: Router, private signupService: SignupService) { }
 
   ngOnInit() {
+    this.loaderService.start();
+
     this.signupService.getanalyst().subscribe(
       data => {
         this.languages = data;
-        console.log(this.languages)
-      },
+        this.loaderService.stop();
+
+      }
     );
   }
 
   signup() {
+    this.loaderService.start();
+
     console.log(this.signupForm.value)
     let json = JSON.stringify({
       email: this.signupForm.value.email,
@@ -55,6 +61,8 @@ export class SignupComponent implements OnInit {
         } else {
           this.router.navigate(['/login']);
         }
+        this.loaderService.stop();
+
       });
     this.signupForm.reset();
   }

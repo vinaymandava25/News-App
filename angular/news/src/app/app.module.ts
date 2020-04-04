@@ -13,7 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { JwtInterceptor } from './interceptor/interceptor';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { AlertsModule } from 'angular-alert-module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,8 @@ import { JwtInterceptor } from './interceptor/interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxUiLoaderModule,
+    AlertsModule.forRoot()
 
   ],
   exports: [

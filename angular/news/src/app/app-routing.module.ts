@@ -6,14 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { HeaderComponent } from './header/header.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:"news",component:NewsComponent},
+  {path:"news",component:NewsComponent,canActivate: [AuthGuard] },
   {path:"signup",component:SignupComponent},
   {path:"",component:SignupComponent},
   {path:"login",component:LoginComponent},
   {path:"search",component:AdminComponent},
-  {path:"favourite",component:FavouritesComponent}
+  {path:"favourite",component:FavouritesComponent,canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -24,6 +24,7 @@ public class ArticleService {
 
 	@Transactional
 	public User saveArticle(Article article) {
+		
 		logger.debug("Articles :{}", article);
 		Article savedArticle = articleRepository.save(article);
 		User user = userRepository.findById(article.getUserId());
@@ -36,11 +37,11 @@ public class ArticleService {
 	@Transactional
 	public User deleteArticle(Article article) {
 
-		logger.debug("Articles :{}",article);
+		logger.debug("Articles :{}", article);
 		int userid = article.getUserId();
-		logger.debug("User :{}",userid);
+		logger.debug("User :{}", userid);
 		User user = userRepository.findById(userid);
-		logger.debug("User :{}",user);
+		logger.debug("User :{}", user);
 		List<Article> articles = user.getArticles();
 		for (int i = 0; i < articles.size(); i++) {
 			if (articles.get(i).getTitle().equals(article.getTitle())) {
@@ -52,5 +53,7 @@ public class ArticleService {
 		return user;
 
 	}
+
+	
 
 }

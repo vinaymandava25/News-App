@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsApiService } from '../news-api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AlertsService } from 'angular-alert-module';
 
 @Component({
   selector: 'app-favourites',
@@ -9,22 +11,25 @@ import { NewsApiService } from '../news-api.service';
 export class FavouritesComponent implements OnInit {
 
   favouriteArticles: any;
-  constructor(private newsApi: NewsApiService) { }
+  constructor(private newsApi: NewsApiService, private loaderService: NgxUiLoaderService, private alertsService: AlertsService) { }
 
-  articleJson:any;
+  articleJson: any;
   ngOnInit() {
-
-    this.favouriteArticles = this.newsApi.user.user.articles;
-    console.log(this.favouriteArticles)
+    this.favouriteArticles = this.newsApi.getArticles();
   }
   deleteArticle(article) {
-    console.log(article)
+    this.loaderService.start();
+
     this.articleJson = article;
     this.articleJson.userId = this.newsApi.userId;
     this.newsApi.deleteArticle(this.articleJson)
       .subscribe(data => {
+        this.alertsService.setMessage('Deleted successfully!', 'success')
         this.favouriteArticles = data.articles;
-        });
+        this.newsApi.setArticles(data.articles);
+        this.loaderService.stop();
+
+      });
   }
 
 }
