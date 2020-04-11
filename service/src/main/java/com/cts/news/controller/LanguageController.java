@@ -22,5 +22,10 @@ public class LanguageController {
 		LOGGER.info("Inside getLanguages()");
 		return languageService.getLanguages();
 	}
+	@GetMapping("/hello")
+	public String hello() {
+		return "hello world!";
+	}
+
 
 }
